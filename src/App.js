@@ -1,9 +1,14 @@
 import './style/App.css';
+import WhiteButton from './AppComponent/WhiteButton';
+import BlackButton from './AppComponent/BlackButton';
 
 function App() {
   return (
     <div className='App'>
-      <p>오셀로</p>
+      <div className="gameBoard">
+        <WhiteButton /><BlackButton /><WhiteButton /><BlackButton />
+        <BlackButton /><WhiteButton /><BlackButton /><WhiteButton />
+      </div>
     </div>
   );
 }
