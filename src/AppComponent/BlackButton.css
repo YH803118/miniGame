@@ -4,3 +4,12 @@
     height: 100px;
     border: 0;
 }
+
+
+.mySelect {
+    background-color: red;
+}
+
+.yourSelect {
+    background-color: blue;
+}
