@@ -1,7 +1,7 @@
 import './style/App.css';
 import { useState } from 'react';
-import WhiteButton from './AppComponent/WhiteButton';
-import BlackButton from './AppComponent/BlackButton';
+import Button from './AppComponent/Button';
+
 
 function App() {
 
@@ -15,28 +15,33 @@ function App() {
     setGameHistory([...gameHistory, e.target.id]);
     console.log(gameHistory);
 
-
-
   }
 
   const buttonArray = () => {
     let arr = [];
-    for (let i=1; i<=16; i++){
-      if(i%2 == 1 && i%8 <= 4){
-        arr.push(<WhiteButton id={i} onClick={select} />);
-      } else if(i%2 == 0 && i%9 > 4){
-          arr.push(<WhiteButton id={i} onClick={select} />);
+    for (let i=1; i<=64; i++){
+      if(i%2 == 1 && i%16 <= 8){
+        arr.push(<Button color="white" id={i} onClick={select} />);
+      } else if(i%2 == 0 && i%16 > 8 || i%16 == 0){
+          arr.push(<Button color="white" id={i} onClick={select} />);
       } else {
-        arr.push(<BlackButton id={i} onClick={select} />);
+        arr.push(<Button color="black" id={i} onClick={select} />);
       }
     }
     return arr;
+  }
+
+  const startButton = () => {
+
   }
 
   return (
     <div className='App'>
       <div className="gameBoard">
         {buttonArray()}
+      </div>
+      <div>
+        <button>시작</button>
       </div>
     </div>
   );

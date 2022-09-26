@@ -1,0 +1,22 @@
+.white {
+    background-color: whitesmoke;
+    width: 50px;
+    height: 50px;
+    border: 0;
+}
+
+.black {
+    background-color: rgb(130, 130, 130);
+    width: 50px;
+    height: 50px;
+    border: 0;
+}
+
+
+.mySelect {
+    background-color: red;
+}
+
+.yourSelect {
+    background-color: blue;
+}

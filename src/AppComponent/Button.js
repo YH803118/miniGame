@@ -1,7 +1,7 @@
 
-import './WhiteButton.css';
+import './Button.css';
 
-function whiteButton({id, onClick}) {
+function Button({color, id, onClick}) {
     const select = (e) => {
         if(!e.target.className.includes('Select')){
            onClick(e);
@@ -11,8 +11,8 @@ function whiteButton({id, onClick}) {
     }
 
     return (
-        <button onClick={select} id={id} className='whiteGameButton'>{id}</button>
+        <button onClick={select} id={id} className={color}>{id}</button>
     );
 }
 
-export default whiteButton;
+export default Button;
