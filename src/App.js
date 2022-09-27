@@ -1,47 +1,46 @@
 import './style/App.css';
 import { useState } from 'react';
 import Button from './AppComponent/Button';
-
+import Start from './AppComponent/Start';
 
 function App() {
 
-  const [gameHistory, setGameHistory] = useState([]);
-
+  // const [gameHistory, setGameHistory] = useState([]);
   const [turn, setTurn] = useState(' mySelect');
   const select = (e) => {
     e.target.className += turn;
     if(turn == ' mySelect')  setTurn(' yourSelect');
     else setTurn(' mySelect');
-    setGameHistory([...gameHistory, e.target.id]);
-    console.log(gameHistory);
-
+    // setGameHistory([...gameHistory, e.target.id]);
+    // console.log(gameHistory);
   }
 
   const buttonArray = () => {
     let arr = [];
     for (let i=1; i<=64; i++){
       if(i%2 == 1 && i%16 <= 8){
-        arr.push(<Button color="white" id={i} onClick={select} />);
+        arr.push(<Button color="white" id={i} onClick={select} turn={turn}/>);
       } else if(i%2 == 0 && i%16 > 8 || i%16 == 0){
-          arr.push(<Button color="white" id={i} onClick={select} />);
+          arr.push(<Button color="white" id={i} onClick={select} turn={turn}/>);
       } else {
-        arr.push(<Button color="black" id={i} onClick={select} />);
+        arr.push(<Button color="black" id={i} onClick={select} turn={turn}/>);
       }
     }
     return arr;
   }
 
-  const startButton = () => {
+  const gameStart = () => {
 
   }
 
+  // 내 턴 - 흰돌
   return (
     <div className='App'>
       <div className="gameBoard">
         {buttonArray()}
       </div>
       <div>
-        <button>시작</button>
+        <Start>시작</Start>
       </div>
     </div>
   );
