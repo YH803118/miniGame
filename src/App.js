@@ -9,7 +9,7 @@ function App() {
   const [turn, setTurn] = useState(' mySelect');
   const select = (e) => {
     e.target.className += turn;
-    if(turn == ' mySelect')  setTurn(' yourSelect');
+    if(turn === ' mySelect')  setTurn(' yourSelect');
     else setTurn(' mySelect');
     // setGameHistory([...gameHistory, e.target.id]);
     // console.log(gameHistory);
@@ -18,19 +18,15 @@ function App() {
   const buttonArray = () => {
     let arr = [];
     for (let i=1; i<=64; i++){
-      if(i%2 == 1 && i%16 <= 8){
+      if(i%2 === 1 && i%16 <= 8){
         arr.push(<Button color="white" id={i} onClick={select} turn={turn}/>);
-      } else if(i%2 == 0 && i%16 > 8 || i%16 == 0){
+      } else if((i%2 === 0 && i%16 > 8) || i%16 === 0){
           arr.push(<Button color="white" id={i} onClick={select} turn={turn}/>);
       } else {
         arr.push(<Button color="black" id={i} onClick={select} turn={turn}/>);
       }
     }
     return arr;
-  }
-
-  const gameStart = () => {
-
   }
 
   // 내 턴 - 흰돌

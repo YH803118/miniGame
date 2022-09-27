@@ -6,7 +6,9 @@ function Button({color, id,onClick, turn}) {
     const select = (e) => {
         if(!e.target.className.includes('Select')){
         //    onClick(e);
-            check(e, turn);
+            if(!check(e, turn)){
+                alert('그곳엔 둘 수 없습니다.');
+            }
         } else {
             alert('이미 고른 칸은 다시 고를 수 없습니다.');
         }
@@ -14,77 +16,117 @@ function Button({color, id,onClick, turn}) {
 
     const check = (e, turn) => {
         const selectNum =  Number(e.target.id);
-        // console.log(document.getElementById(selectNum));
-        // if(selectNum < 8){}
-        // else if(selectNum%8 == 0){}
-        // else if(selectNum%8 == 1){}
-        // else if(selectNum > 56){}
-        // else         
-        console.log(Math.ceil(selectNum/8));
+        const turnArr = [];
         if(turn.includes('my')){
-            if(document.getElementById(selectNum+1).className.includes('your')){
-                for(let i=selectNum+2; i<=Math.ceil(selectNum/8)*8;i++)
-                    if(document.getElementById(i).className.includes('my')){
-                        for(let i=selectNum+1; i<=Math.ceil(selectNum/8)*8-1;i++)
-                            document.getElementById(i).classList.replace('yourSelect', 'mySelect');
-                            onClick(e);
-                        }
-            }// 좌
-            if(document.getElementById(selectNum-1).className.includes('your')){
-                for(let i=selectNum-2; i>=Math.floor(selectNum/8)*8+1;i--)
-                    if(document.getElementById(i).className.includes('my')){
-                        for(let i=selectNum-1; i>=Math.floor(selectNum/8)*8+1;i--)
-                            document.getElementById(i).classList.replace('yourSelect', 'mySelect');
-                            onClick(e);
-                        }
-            }// 우
-            if(document.getElementById(selectNum-8).className.includes('your')){
-                for(let i=selectNum-8; i>=0;){
-                    if(document.getElementById(i).className.includes('my')){
-                        for(let i=selectNum-8; i>=0;){
-                            document.getElementById(i).classList.replace('yourSelect', 'mySelect');
-                            i -= 8;
-                        }
-                            onClick(e);
-                        } i -= 8;
-                    }
-            }// 상
-            if(document.getElementById(selectNum+8).className.includes('your')){
-                for(let i=selectNum+8; i<=64;){
-                    if(document.getElementById(i).className.includes('my')){
-                        for(let i=selectNum+8; i<=64;){
-                            document.getElementById(i).classList.replace('yourSelect', 'mySelect');
-                            i += 8;
-                        }
-                            onClick(e);
-                        } i += 8;
-                    }
-            }// 하
-            if(document.getElementById(selectNum-8).className.includes('your')){
-                for(let i=selectNum-8; i>=0;){
-                    if(document.getElementById(i).className.includes('my')){
-                        for(let i=selectNum-8; i>=0;){
-                            document.getElementById(i).classList.replace('yourSelect', 'mySelect');
-                            i -= 8;
-                        }
-                            onClick(e);
-                        } i -= 8;
-                    }
-            }// 대각 - 
-            else onClick(e);
+            turnArr.push('mySelect');
+            turnArr.push('yourSelect');
+        } else {
+            turnArr.push('yourSelect');
+            turnArr.push('mySelect');
         }
-        else onClick(e);
-        //      if(
-        //     document.getElementById(selectNum-1).className.includes('yourSelect') ||
-        //     document.getElementById(selectNum+8).className.includes('yourSelect') ||
-        //     document.getElementById(selectNum-8).className.includes('yourSelect')
-        //     ){
-        //         console.log('주위에 검은 돌이 있다?');
-        //         onClick(e);
-        // }
-        // else {
-        //     alert('둘수없는 곳입니다!');
-        // }
+        let possible = false;
+
+        if(document.getElementById(selectNum+1).className.includes(turnArr[1])){
+            for(let i=selectNum+2; i<=Math.ceil(selectNum/8)*8;i++)
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum+1; i<=Math.ceil(selectNum/8)*8-1;i++){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                        document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                    }
+                        onClick(e);
+                        possible = true;
+                    }
+        }// 좌
+        if(document.getElementById(selectNum-1).className.includes(turnArr[1])){
+            for(let i=selectNum-2; i>=Math.floor(selectNum/8)*8+1;i--)
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum-1; i>=Math.floor(selectNum/8)*8+1;i--){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                        document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                    }
+                        onClick(e);
+                        possible = true;
+                    }
+        }// 우
+        if(document.getElementById(selectNum-8).className.includes(turnArr[1])){
+            for(let i=selectNum-8; i>=0;){
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum-8; i>=0;){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                        document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                        i -= 8;
+                    }
+                        onClick(e);
+                        possible = true;
+                    } i -= 8;
+                }
+        }// 상
+        if(document.getElementById(selectNum+8).className.includes(turnArr[1])){
+            for(let i=selectNum+8; i<=64;){
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum+8; i<=64;){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                        document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                        i += 8;
+                    }
+                        onClick(e);
+                        possible = true;
+                    } i += 8;
+                }
+        }// 하
+        if(document.getElementById(selectNum-7).className.includes(turnArr[1])){
+            for(let i=selectNum-7; i>=0;){
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum-7; i>=0;){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                        document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                        i -= 7;
+                    }
+                        onClick(e);
+                        possible = true;
+                    } i -= 7;
+                }
+        }// 대각 - 우상
+        if(document.getElementById(selectNum-9).className.includes(turnArr[1])){
+            for(let i=selectNum-9; i>=0;){
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum-9; i>=0;){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                        document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                        i -= 9;
+                    }
+                        onClick(e);
+                        possible = true;
+                    } i -= 9;
+                }
+        }// 대각 - 좌상
+        if(document.getElementById(selectNum+9).className.includes(turnArr[1])){
+            for(let i=selectNum+9; i<=64;){
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum+9; i<=64;){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                            document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                            i += 9;
+                        }
+                        onClick(e);
+                        possible = true;
+                        } i += 9;
+                    }
+        }// 대각 - 우하
+        if(document.getElementById(selectNum+7).className.includes(turnArr[1])){
+            for(let i=selectNum+7; i<=64;){
+                if(document.getElementById(i).className.includes(turnArr[0])){
+                    for(let i=selectNum+7; i<=64;){
+                        if(document.getElementById(i).className.includes(turnArr[0])) break;
+                            document.getElementById(i).classList.replace(turnArr[1], turnArr[0]);
+                            i += 7;
+                        }
+                        onClick(e);
+                        possible = true;
+                        } i += 7;
+                    }
+        }// 대각 - 좌하  
+        return possible;
     }
 
     return (
