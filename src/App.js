@@ -2,17 +2,17 @@ import './style/App.css';
 import { useState } from 'react';
 import Button from './AppComponent/Button';
 import Start from './AppComponent/Start';
-
+import End from './AppComponent/End';
 function App() {
 
-  // const [gameHistory, setGameHistory] = useState([]);
   const [turn, setTurn] = useState(' mySelect');
   const select = (e) => {
     e.target.className += turn;
+    turnEnd();
+  }
+  const turnEnd = () => {
     if(turn === ' mySelect')  setTurn(' yourSelect');
     else setTurn(' mySelect');
-    // setGameHistory([...gameHistory, e.target.id]);
-    // console.log(gameHistory);
   }
 
   const buttonArray = () => {
@@ -36,7 +36,9 @@ function App() {
         {buttonArray()}
       </div>
       <div>
-        <Start>시작</Start>
+        <Start></Start>
+        <button className='passButton' onClick={turnEnd}>넘기기</button><br></br>
+        <End></End>
       </div>
     </div>
   );

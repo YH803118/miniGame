@@ -16,7 +16,7 @@ function Start() {
     return (
         <>
             
-            <button onClick={gameStart}>게임 시작</button>
+            <button className='startButton' onClick={gameStart}>게임 시작</button>
         </>
     );
 }
